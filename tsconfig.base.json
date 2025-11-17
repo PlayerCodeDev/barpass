@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"target": "ES2024", // version de JavaScript
+		"module": "esnext", // export/import
+		"moduleResolution": "node", // comportamiento similar a Node
+		"strict": true, // comprobaciones extrictas
+		"esModuleInterop": true, // import x from x
+		"resolveJsonModule": true, // importar json
+		// "noEmit": true, // evita archivos .js
+		"jsx": "react-jsx",
+		"baseUrl": ".",
+		"paths": {
+			"@shared/*": [
+				"./packages/shared/src/*"
+			],
+			"@shared": [
+				"./packages/shared/src"
+			]
+		}
+	},
+	"include": [
+		"apps",
+		"packages"
+	],
+	"exclude": [
+		"**/eslint.config.js"
+	]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@app/backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development tsx -r tsconfig-paths/register src/index.ts",
+    "dev:watch": "cross-env NODE_ENV=development tsx watch -r tsconfig-paths/register src/index.ts",
+    "build": "cross-env NODE_ENV=production tsc --build",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "clean": "rimraf dist",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "cross-env": "^10.1.0",
+    "rimraf": "^6.1.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "envsafe": "^2.0.3",
+    "zod": "^4.1.12"
+  }
+}

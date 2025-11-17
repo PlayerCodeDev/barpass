@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Ejecutando lint-staged..."
+pnpm lint-staged
+
+# Verificar si hay errores de lint sin corregir
+echo "Verificando errores de lint..."
+pnpm lint:check
+
+# Si lint falla, detener el commit
+if [ $? -ne 0 ]; then
+  echo "Se detectaron errores de lint. Corrige antes de hacer commit."
+  exit 1
+fi
+
+echo "Lint verificado correctamente. Commit permitido."

@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Ejecutando verificación antes del push..."
+
+# Ejecutar build y tests
+pnpm run prepush-check
+
+# Si falla, detener el push
+if [ $? -ne 0 ]; then
+  echo "Push detenido: errores detectados en la build o en los tests."
+  exit 1
+fi
+
+echo "Verificación completada correctamente. Push permitido."

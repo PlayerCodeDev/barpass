@@ -1,0 +1,19 @@
+# node
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+
+# builds
+dist/
+build/
+
+# env
+.env
+.env.*
+.env.local
+.env.*.local
+
+# editor
+.vscode/
+.idea/
+.DS_Store
