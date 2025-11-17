@@ -1,4 +1,12 @@
-import { env } from './config/env';
+import { startServer } from './server/http.js';
+import { env } from './core/config/env.js';
 
-console.log('servidor iniciado en el puerto:', env.PORT);
-console.log('Modo:', env.NODE_ENV);
+(async () => {
+  try {
+    await startServer();
+    console.log(`Backend listening on port ${env.PORT}`);
+  } catch (err) {
+    console.error('Fatal error during server star', err);
+    process.exit(1);
+  }
+})();
