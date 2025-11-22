@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development tsx -r tsconfig-paths/register src/index.ts",
-    "dev:watch": "cross-env NODE_ENV=development tsx watch -r tsconfig-paths/register src/index.ts",
+    "dev": "cross-env NODE_ENV=development tsx -r tsconfig-paths/register src/server.ts",
+    "dev:watch": "cross-env NODE_ENV=development tsx watch -r tsconfig-paths/register src/server.ts",
     "build": "cross-env NODE_ENV=production tsc --build",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
     "clean": "rimraf dist",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
