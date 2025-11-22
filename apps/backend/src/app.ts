@@ -5,6 +5,7 @@ const app = express();
 
 // Middlewares globales
 app.use(express.json()); // middleware para que Express reviba JSON en `req.body`
+app.use(express.urlencoded({ extended: true })); // middleware para parser más completo.
 
 // Rutas
 app.get('/api/health', (req, res) => {
