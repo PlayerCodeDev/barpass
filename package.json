@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.3",
-    "envsafe": "^2.0.3"
+    "envsafe": "^2.0.3",
+    "pnpm": "^10.23.0"
   }
 }
