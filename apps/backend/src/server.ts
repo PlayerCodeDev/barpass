@@ -1,8 +1,19 @@
 import app from './app.js';
+import { connectToDatabase } from './config/database.js';
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    await connectToDatabase();
+
+    app.listen(PORT, () => {
+      console.log(`Servidor iniciado en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error(`No se pudo iniciar el servidor: ${error}`);
+    process.exit(1);
+  }
+}
+
+startServer();
