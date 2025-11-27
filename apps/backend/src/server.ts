@@ -1,11 +1,14 @@
 import app from './app.js';
 import { connectToDatabase } from './config/database.js';
 
-const PORT = process.env.PORT || 3000;
-
+/**
+ * Levanta el servidor HTTP y establece conexión con la base de datos.
+ */
 async function startServer() {
   try {
     await connectToDatabase();
+
+    const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, () => {
       console.log(`Servidor iniciado en http://localhost:${PORT}`);

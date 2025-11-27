@@ -2,6 +2,12 @@ import { Schema, model } from 'mongoose';
 
 export type UserRole = 'admin' | 'staff';
 
+/**
+ * @property {string} name Nombre del usuario
+ * @property {string} email Email único del usuario
+ * @property {string} password Contraseña sin hashear (por ahora)
+ * @property {'admin' | 'staff'} role Rol del usuario
+ */
 export interface User {
   name: string;
   email: string;
@@ -37,4 +43,8 @@ const userSchema = new Schema<User>(
   { timestamps: true },
 );
 
+/**
+ * Modelo de Usuarios para MongoDB.
+ * Permite crear, consultar y manipular usuarios.
+ */
 export const UserModel = model<User>('User', userSchema);
