@@ -1,10 +1,10 @@
-import express from 'express';
+import express, { type Application } from 'express';
 
 /**
  * Inicializa y configura la aplicación Express.
  * @returns Instancia de la app Express lista para ser usada por el servidor.
  */
-const app = express();
+const app: Application = express();
 
 /**
  * Middlewares globales
