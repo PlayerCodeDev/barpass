@@ -1,19 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-    "isolatedModules": true,
-    "noEmitOnError": true
+    "composite": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.backend.tsbuildinfo"
   },
-  "include": ["src", "tests"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    {
-      "path": "../../packages/shared"
-    }
-  ]
+  "include": ["src", "tests"]
 }

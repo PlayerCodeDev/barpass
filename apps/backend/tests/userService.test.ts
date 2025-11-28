@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { UserService } from '../src/services/user.service';
+import { UserService } from '../src/services/user.service.js';
 import { config } from 'dotenv';
 import { UserModel, User } from '../src/models/user.model.js';
 
