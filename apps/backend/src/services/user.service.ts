@@ -1,4 +1,5 @@
 import { UserModel, User } from '../models/user.model.js';
+import bcrypt from 'bcrypt';
 
 export class UserService {
   /**
@@ -12,7 +13,15 @@ export class UserService {
    * @returns El documento creado en MongoDB.
    */
   static async createUser(data: User) {
-    const user = await UserModel.create(data);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(data.password, salt);
+
+    const userData = {
+      ...data,
+      password: hashedPassword,
+    };
+
+    const user = await UserModel.create(userData);
     return user;
   }
 
