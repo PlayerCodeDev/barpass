@@ -39,7 +39,7 @@ async function runTests() {
     console.log('Respuesta login:', loginRes.body);
 
     console.log('\n--- Eliminando usuario de pruebas ---');
-    await mongoose.connection.collection('user').deleteOne({
+    await mongoose.connection.collection('users').deleteOne({
       email: testUser.email,
     });
   } catch (err) {
