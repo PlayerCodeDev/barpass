@@ -28,7 +28,10 @@ async function runTests() {
 
     console.log('\n--- TEST: Crear usuario ---');
     const newUser = await UserService.createUser(testUser);
-    console.log('Usuario creado:', newUser);
+    console.log('Usuario creado:', {
+      id: newUser._id,
+      email: newUser.email,
+    });
 
     console.log('\n--- TEST: Login ---');
     const loginRes = await request(app).post('/api/auth/login').send({
@@ -37,6 +40,16 @@ async function runTests() {
     });
 
     console.log('Respuesta login:', loginRes.body);
+
+    if (loginRes.status !== 200) {
+      console.error('ERROR: El login no respondió con código 200 OK.');
+    }
+
+    if (!loginRes.body.token) {
+      console.error('ERROR: No se recibió un token JWT en la respuesta.');
+    } else {
+      console.log('Token revibido correctamente.');
+    }
 
     console.log('\n--- Eliminando usuario de pruebas ---');
     await mongoose.connection.collection('users').deleteOne({

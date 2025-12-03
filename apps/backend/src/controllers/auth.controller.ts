@@ -1,29 +1,28 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { UserService } from '../services/user.service.js';
+import { generateToken } from '../middlewares/jwt.middleware.js';
 
 /**
  * Controlador de autenticación.
  *
- * Gestiona las operaciones relacionadas con el inicio de sesión
- * y la validación de credenciales de usuarios.
+ * Gestiona las operaciones relacionadas con el inicio de sesión,
+ * validación de credenciales y generación de tokens JWT.
  */
 export class AuthController {
   /**
    * Inicio de sesión de un usuario.
    *
    * Este método:
-   * - Recibe `email` y `password` desde el body de la petición
-   * - Valida que ambos campos existan
+   * - Recibe `email` y `password`
    * - Busca al usuario por email
-   * - Compara la contraseña ingresada con el hash almacenado usando bcrypt
-   * - Retorna error si las credenciales no coinciden
-   * - Retorna los datos del usuario si la autenticación es exitosa
+   * - Compara la contraseña con bcrypt
+   * - Si coincide, firma un JWT con los datos del usuario
    *
    * @async
    * @param {Request} req Objeto de solicitud HTTP de Express.
    * @param {Response} res Objeto de respuesta HTTP de Express.
-   * @returns Respuesta JSON con el resultado del login.
+   * @returns Respuesta JSON con token JWT y datos del usuario.
    */
   static async login(req: Request, res: Response) {
     try {
@@ -51,7 +50,7 @@ export class AuthController {
       }
 
       /**
-       * Comparar la contraseña ingresada con el has almacenado.
+       * Validad la contraseña.
        */
       const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -61,12 +60,19 @@ export class AuthController {
         });
       }
 
+      const token = generateToken({
+        id: user._id,
+        role: user.role,
+        email: user.email,
+      });
+
       /**
        * Si las credenciales son correctas, se retorna la información básica
        * del usuario.
        */
       return res.status(200).json({
         message: 'Inicio de sesión exitosa',
+        token,
         user: {
           id: user._id,
           name: user.name,
