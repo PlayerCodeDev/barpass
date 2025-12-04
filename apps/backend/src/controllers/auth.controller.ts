@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { UserService } from '../services/user.service.js';
-import { generateToken } from '../middlewares/jwt.middleware.js';
 
 /**
  * Controlador de autenticación.
@@ -60,6 +59,8 @@ export class AuthController {
         });
       }
 
+      const { generateToken } = await import('../middlewares/jwt.middleware.js');
+
       const token = generateToken({
         id: user._id,
         role: user.role,
@@ -73,18 +74,47 @@ export class AuthController {
       return res.status(200).json({
         message: 'Inicio de sesión exitosa',
         token,
+      });
+    } catch (err) {
+      console.error('Error en login:', err);
+      return res.status(500).json({
+        error: 'Error interno del servidor.',
+      });
+    }
+  }
+
+  /**
+   * Devuelve los datos del usuario autenticado.
+   */
+  static async me(req: Request, res: Response) {
+    try {
+      const payload = req.user as { id: string };
+
+      if (!payload?.id) {
+        return res.status(401).json({
+          error: 'Token inválido: No contiene ID de usuario.',
+        });
+      }
+
+      const user = await UserService.findById(payload.id);
+
+      if (!user) {
+        return res.status(404).json({
+          message: 'Usuario no encontrado.',
+        });
+      }
+
+      return res.status(200).json({
+        message: 'Perfil obtenido con éxito',
         user: {
           id: user._id,
-          name: user.name,
           email: user.email,
-          rol: user.role,
+          role: user.role,
+          name: user.name,
         },
       });
     } catch (err) {
-      /**
-       * Captura de errores inesperados (fallo de DB, fallos internos, etc.)
-       */
-      console.error('Error en login:', err);
+      console.error('Error en /auth/me:', err);
       return res.status(500).json({
         error: 'Error interno del servidor.',
       });

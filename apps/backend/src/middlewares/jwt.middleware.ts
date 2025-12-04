@@ -1,6 +1,7 @@
 import jwt, { Secret } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { StringValue } from 'ms';
+import { JwtUserPayload } from '../types/express.d.js';
 
 /**
  * Firma un JWT usando el ID del usuario y otros datos básicos.
@@ -41,7 +42,7 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
       throw new Error('JWT_SECRET no está definido en el archivo .env');
     }
 
-    const decode = jwt.verify(token, secret);
+    const decode = jwt.verify(token, secret) as JwtUserPayload;
 
     req.user = decode;
 

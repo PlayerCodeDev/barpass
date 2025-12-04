@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { AuthController } from '../controllers/auth.controller';
+import { verifyToken } from '../middlewares/jwt.middleware';
 
 /**
  * Rutas de autenticación.
@@ -12,5 +13,11 @@ const router: Router = Router();
  * Punto de entrada para que un usuario inicie sesión.
  */
 router.post('/login', AuthController.login);
+
+/**
+ * GET /auth/me
+ * Requiere un JWT válido en Authotization: Bearer <token>.
+ */
+router.get('/me', verifyToken, AuthController.me);
 
 export default router;

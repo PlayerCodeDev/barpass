@@ -35,4 +35,18 @@ export class UserService {
   static async findByEmail(email: string) {
     return UserModel.findOne({ email }).exec();
   }
+
+  /**
+   * Busca un usuario por su ID.
+   *
+   * Este método es útil para obtener la información completa
+   * del usuario autenticado.
+   *
+   * @async
+   * @param id ID de MongoDB del usuario.
+   * @return EL usuario encontrado o `null` si no existe.
+   */
+  static async findById(id: string) {
+    return UserModel.findById(id).exec();
+  }
 }
