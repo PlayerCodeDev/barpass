@@ -1,5 +1,6 @@
 import express, { type Application } from 'express';
-import authRoutes from './routes/auth.router.js';
+import authRoutes from './routes/auth.routes.js';
+import eventRoutes from './routes/event.routes.js';
 
 /**
  * Inicializa y configura la aplicación Express.
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true })); // middleware para parser más 
  * Registro de rutas
  */
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
 
 /**
  * Ruta de verificación de estado del backend.
